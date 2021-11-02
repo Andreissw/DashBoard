@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<table style="margin: 5px auto">
+    @for (int i = 1; i <= 4; i++)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink($"FAS Line {i}", "GetLine", new { LineName = $"FAS Line {i}" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ActionLink($"DPH410S sp33", "GetDepo", new { name = "sp33_Dp_ DPH410S_10000шт" }, new {  @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"DPA320S sp36", "GetDepo",  new { name = "sp36_Dp_Плата системная DPA320S_7000шт" }, new {   @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+</table>
+
+

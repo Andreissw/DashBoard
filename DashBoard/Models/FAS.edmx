@@ -1,0 +1,646 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище FASModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contract_LOT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOTCode" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="Specification" Type="nvarchar" MaxLength="250" />
+          <Property Name="FullLOTCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="LiterIndex" Type="int" Nullable="false" />
+          <Property Name="BoxCapacity" Type="int" Nullable="false" />
+          <Property Name="PalletCapacity" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CheckFormatSN_SMT" Type="bit" Nullable="false" />
+          <Property Name="CheckFormatSN_FAS" Type="bit" Nullable="false" />
+          <Property Name="SMTNumberFormat" Type="nvarchar" MaxLength="150" />
+          <Property Name="SMTRangeChecked" Type="bit" Nullable="false" />
+          <Property Name="SMTStartRange" Type="int" />
+          <Property Name="SMTEndRange" Type="int" />
+          <Property Name="FASNumberFormat" Type="nvarchar" MaxLength="150" />
+          <Property Name="FASRangeChecked" Type="bit" Nullable="false" />
+          <Property Name="FASStartRange" Type="int" />
+          <Property Name="FASEndRange" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="SingleSN" Type="bit" />
+          <Property Name="SN_MAC_Param" Type="tinyint" />
+          <Property Name="ParseLog" Type="bit" />
+          <Property Name="StepSequence" Type="nvarchar" MaxLength="50" />
+          <Property Name="HexFasSN" Type="bit" />
+          <Property Name="СustomersID" Type="int" />
+          <Property Name="LOTSize" Type="int" />
+          <Property Name="LOT_Shipped" Type="int" />
+          <Property Name="FASNumberFormat2" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "FAS.dbo.Ct_OperLog" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Ct_OperLog">
+          <Key>
+            <PropertyRef Name="TestResultID" />
+            <PropertyRef Name="StepDate" />
+          </Key>
+          <Property Name="PCBID" Type="int" />
+          <Property Name="LOTID" Type="int" />
+          <Property Name="StepID" Type="smallint" />
+          <Property Name="TestResultID" Type="tinyint" Nullable="false" />
+          <Property Name="StepDate" Type="datetime" Nullable="false" />
+          <Property Name="StepByID" Type="smallint" />
+          <Property Name="LineID" Type="tinyint" />
+          <Property Name="ErrorCodeID" Type="int" />
+          <Property Name="Descriptions" Type="nvarchar" MaxLength="250" />
+          <Property Name="SNID" Type="int" />
+        </EntityType>
+        <EntityType Name="FAS_App_ListForPC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="App_ID" Type="smallint" Nullable="false" />
+          <Property Name="LineID" Type="tinyint" Nullable="false" />
+          <Property Name="StationID" Type="smallint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CT_ScanStep" Type="smallint" />
+        </EntityType>
+        <EntityType Name="FAS_Breaks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LineID" Type="tinyint" Nullable="false" />
+          <Property Name="BreakNumber" Type="smallint" Nullable="false" />
+          <Property Name="StartBreak" Type="time" Precision="0" />
+          <Property Name="EndBreak" Type="time" Precision="0" />
+        </EntityType>
+        <EntityType Name="FAS_Disassembly">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="int" />
+          <Property Name="FullSTBSN" Type="varchar" MaxLength="23" />
+          <Property Name="PCBID" Type="int" Nullable="false" />
+          <Property Name="LOTID" Type="smallint" Nullable="false" />
+          <Property Name="ErrorCodeID" Type="smallint" Nullable="false" />
+          <Property Name="DisAssemblyLineID" Type="tinyint" Nullable="false" />
+          <Property Name="DisassemblyDate" Type="datetime" Nullable="false" />
+          <Property Name="DisassemblyByID" Type="smallint" />
+        </EntityType>
+        <EntityType Name="FAS_Lines">
+          <Key>
+            <PropertyRef Name="LineID" />
+          </Key>
+          <Property Name="LineID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LineName" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="TipeID" Type="tinyint" Nullable="false" />
+          <Property Name="Print_Line" Type="varchar" MaxLength="2" />
+          <Property Name="Flat_LineID" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FAS_LineType">
+          <Key>
+            <PropertyRef Name="TipeID" />
+          </Key>
+          <Property Name="TipeID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAS_Liter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LiterName" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LineID" Type="smallint" />
+        </EntityType>
+        <EntityType Name="FAS_PackingGS">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="int" Nullable="false" />
+          <Property Name="LiterID" Type="tinyint" Nullable="false" />
+          <Property Name="LiterIndex" Type="smallint" Nullable="false" />
+          <Property Name="PalletNum" Type="smallint" Nullable="false" />
+          <Property Name="BoxNum" Type="smallint" Nullable="false" />
+          <Property Name="UnitNum" Type="smallint" Nullable="false" />
+          <Property Name="PackingDate" Type="datetime" Nullable="false" />
+          <Property Name="PackingByID" Type="smallint" Nullable="false" />
+          <Property Name="LOTID" Type="smallint" />
+          <Property Name="FullBox" Type="bit" />
+          <Property Name="RepackingDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FAS_ShiftPlan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LineID" Type="tinyint" Nullable="false" />
+          <Property Name="ShiftPlan" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAS_ShiftsCounter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StationID" Type="smallint" Nullable="false" />
+          <Property Name="ID_App" Type="smallint" Nullable="false" />
+          <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+          <Property Name="ShiftCounter" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LOTID" Type="int" />
+          <Property Name="LOT_Counter" Type="int" />
+          <Property Name="PassLOTRes" Type="int" />
+          <Property Name="FAilLOTRes" Type="int" />
+        </EntityType>
+        <EntityType Name="FAS_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFID" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsActiv" Type="bit" Nullable="false" />
+          <Property Name="UsersGroupID" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FAS_App_ListForPC_FAS_Lines">
+          <End Role="FAS_Lines" Type="Self.FAS_Lines" Multiplicity="1" />
+          <End Role="FAS_App_ListForPC" Type="Self.FAS_App_ListForPC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAS_Lines">
+              <PropertyRef Name="LineID" />
+            </Principal>
+            <Dependent Role="FAS_App_ListForPC">
+              <PropertyRef Name="LineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAS_PackingGS_FAS_Users">
+          <End Role="FAS_Users" Type="Self.FAS_Users" Multiplicity="1" />
+          <End Role="FAS_PackingGS" Type="Self.FAS_PackingGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAS_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FAS_PackingGS">
+              <PropertyRef Name="PackingByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FASModelContainer">
+          <EntitySet Name="Contract_LOT" EntityType="Self.Contract_LOT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_App_ListForPC" EntityType="Self.FAS_App_ListForPC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_Breaks" EntityType="Self.FAS_Breaks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_Disassembly" EntityType="Self.FAS_Disassembly" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_Lines" EntityType="Self.FAS_Lines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_LineType" EntityType="Self.FAS_LineType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_Liter" EntityType="Self.FAS_Liter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_PackingGS" EntityType="Self.FAS_PackingGS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_ShiftPlan" EntityType="Self.FAS_ShiftPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_ShiftsCounter" EntityType="Self.FAS_ShiftsCounter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAS_Users" EntityType="Self.FAS_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ct_OperLog" EntityType="Self.Ct_OperLog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Ct_OperLog].[PCBID] AS [PCBID], 
+    [Ct_OperLog].[LOTID] AS [LOTID], 
+    [Ct_OperLog].[StepID] AS [StepID], 
+    [Ct_OperLog].[TestResultID] AS [TestResultID], 
+    [Ct_OperLog].[StepDate] AS [StepDate], 
+    [Ct_OperLog].[StepByID] AS [StepByID], 
+    [Ct_OperLog].[LineID] AS [LineID], 
+    [Ct_OperLog].[ErrorCodeID] AS [ErrorCodeID], 
+    [Ct_OperLog].[Descriptions] AS [Descriptions], 
+    [Ct_OperLog].[SNID] AS [SNID]
+    FROM [dbo].[Ct_OperLog] AS [Ct_OperLog]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_FAS_App_ListForPC_FAS_Lines" Association="Self.FK_FAS_App_ListForPC_FAS_Lines">
+            <End Role="FAS_Lines" EntitySet="FAS_Lines" />
+            <End Role="FAS_App_ListForPC" EntitySet="FAS_App_ListForPC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAS_PackingGS_FAS_Users" Association="Self.FK_FAS_PackingGS_FAS_Users">
+            <End Role="FAS_Users" EntitySet="FAS_Users" />
+            <End Role="FAS_PackingGS" EntitySet="FAS_PackingGS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FASModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FAS_Breaks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LineID" Type="Byte" Nullable="false" />
+          <Property Name="BreakNumber" Type="Int16" Nullable="false" />
+          <Property Name="StartBreak" Type="Time" Precision="0" />
+          <Property Name="EndBreak" Type="Time" Precision="0" />
+        </EntityType>
+        <EntityType Name="FAS_Lines">
+          <Key>
+            <PropertyRef Name="LineID" />
+          </Key>
+          <Property Name="LineID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LineName" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipeID" Type="Byte" Nullable="false" />
+          <Property Name="Print_Line" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Flat_LineID" Type="Byte" />
+          <NavigationProperty Name="FAS_App_ListForPC" Relationship="FASModel.FK_FAS_App_ListForPC_FAS_Lines" FromRole="FAS_Lines" ToRole="FAS_App_ListForPC" />
+        </EntityType>
+        <EntityType Name="FAS_LineType">
+          <Key>
+            <PropertyRef Name="TipeID" />
+          </Key>
+          <Property Name="TipeID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipeName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAS_Liter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LiterName" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LineID" Type="Int16" />
+        </EntityType>
+        <EntityType Name="FAS_ShiftPlan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LineID" Type="Byte" Nullable="false" />
+          <Property Name="ShiftPlan" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAS_ShiftsCounter">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationID" Type="Int16" Nullable="false" />
+          <Property Name="ID_App" Type="Int16" Nullable="false" />
+          <Property Name="ShiftID" Type="Byte" Nullable="false" />
+          <Property Name="ShiftCounter" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LOTID" Type="Int32" />
+          <Property Name="LOT_Counter" Type="Int32" />
+          <Property Name="PassLOTRes" Type="Int32" />
+          <Property Name="FAilLOTRes" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="FASEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FAS_Breaks" EntityType="Self.FAS_Breaks" />
+          <EntitySet Name="FAS_Lines" EntityType="Self.FAS_Lines" />
+          <EntitySet Name="FAS_LineType" EntityType="Self.FAS_LineType" />
+          <EntitySet Name="FAS_Liter" EntityType="Self.FAS_Liter" />
+          <EntitySet Name="FAS_ShiftPlan" EntityType="Self.FAS_ShiftPlan" />
+          <EntitySet Name="FAS_ShiftsCounter" EntityType="Self.FAS_ShiftsCounter" />
+          <EntitySet Name="FAS_App_ListForPC" EntityType="FASModel.FAS_App_ListForPC" />
+          <AssociationSet Name="FK_FAS_App_ListForPC_FAS_Lines" Association="FASModel.FK_FAS_App_ListForPC_FAS_Lines">
+            <End Role="FAS_Lines" EntitySet="FAS_Lines" />
+            <End Role="FAS_App_ListForPC" EntitySet="FAS_App_ListForPC" />
+          </AssociationSet>
+          <EntitySet Name="FAS_PackingGS" EntityType="FASModel.FAS_PackingGS" />
+          <EntitySet Name="FAS_Disassembly" EntityType="FASModel.FAS_Disassembly" />
+          <EntitySet Name="FAS_Users" EntityType="FASModel.FAS_Users" />
+          <EntitySet Name="Ct_OperLog" EntityType="FASModel.Ct_OperLog" />
+          <AssociationSet Name="FK_FAS_PackingGS_FAS_Users" Association="FASModel.FK_FAS_PackingGS_FAS_Users">
+            <End Role="FAS_Users" EntitySet="FAS_Users" />
+            <End Role="FAS_PackingGS" EntitySet="FAS_PackingGS" />
+          </AssociationSet>
+          <EntitySet Name="Contract_LOT" EntityType="FASModel.Contract_LOT" />
+        </EntityContainer>
+        <EntityType Name="FAS_App_ListForPC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="App_ID" Type="Int16" Nullable="false" />
+          <Property Name="LineID" Type="Byte" Nullable="false" />
+          <Property Name="StationID" Type="Int16" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CT_ScanStep" Type="Int16" />
+          <NavigationProperty Name="FAS_Lines" Relationship="FASModel.FK_FAS_App_ListForPC_FAS_Lines" FromRole="FAS_App_ListForPC" ToRole="FAS_Lines" />
+        </EntityType>
+        <Association Name="FK_FAS_App_ListForPC_FAS_Lines">
+          <End Type="FASModel.FAS_Lines" Role="FAS_Lines" Multiplicity="1" />
+          <End Type="FASModel.FAS_App_ListForPC" Role="FAS_App_ListForPC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAS_Lines">
+              <PropertyRef Name="LineID" />
+            </Principal>
+            <Dependent Role="FAS_App_ListForPC">
+              <PropertyRef Name="LineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FAS_PackingGS">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="Int32" Nullable="false" />
+          <Property Name="LiterID" Type="Byte" Nullable="false" />
+          <Property Name="LiterIndex" Type="Int16" Nullable="false" />
+          <Property Name="PalletNum" Type="Int16" Nullable="false" />
+          <Property Name="BoxNum" Type="Int16" Nullable="false" />
+          <Property Name="UnitNum" Type="Int16" Nullable="false" />
+          <Property Name="PackingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PackingByID" Type="Int16" Nullable="false" />
+          <Property Name="LOTID" Type="Int16" />
+          <Property Name="FullBox" Type="Boolean" />
+          <NavigationProperty Name="FAS_Users" Relationship="FASModel.FK_FAS_PackingGS_FAS_Users" FromRole="FAS_PackingGS" ToRole="FAS_Users" />
+          <Property Name="RepackingDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FAS_Disassembly">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="Int32" />
+          <Property Name="FullSTBSN" Type="String" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="PCBID" Type="Int32" Nullable="false" />
+          <Property Name="LOTID" Type="Int16" Nullable="false" />
+          <Property Name="ErrorCodeID" Type="Int16" Nullable="false" />
+          <Property Name="DisAssemblyLineID" Type="Byte" Nullable="false" />
+          <Property Name="DisassemblyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DisassemblyByID" Type="Int16" />
+        </EntityType>
+        <EntityType Name="FAS_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActiv" Type="Boolean" Nullable="false" />
+          <Property Name="UsersGroupID" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="FAS_PackingGS" Relationship="FASModel.FK_FAS_PackingGS_FAS_Users" FromRole="FAS_Users" ToRole="FAS_PackingGS" />
+        </EntityType>
+        <EntityType Name="Ct_OperLog">
+          <Key>
+            <PropertyRef Name="TestResultID" />
+            <PropertyRef Name="StepDate" />
+          </Key>
+          <Property Name="PCBID" Type="Int32" />
+          <Property Name="LOTID" Type="Int32" />
+          <Property Name="StepID" Type="Int16" />
+          <Property Name="TestResultID" Type="Byte" Nullable="false" />
+          <Property Name="StepDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StepByID" Type="Int16" />
+          <Property Name="LineID" Type="Byte" />
+          <Property Name="ErrorCodeID" Type="Int32" />
+          <Property Name="Descriptions" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SNID" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_FAS_PackingGS_FAS_Users">
+          <End Type="FASModel.FAS_Users" Role="FAS_Users" Multiplicity="1" />
+          <End Type="FASModel.FAS_PackingGS" Role="FAS_PackingGS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAS_Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FAS_PackingGS">
+              <PropertyRef Name="PackingByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Contract_LOT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOTCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="Specification" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FullLOTCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LiterIndex" Type="Int32" Nullable="false" />
+          <Property Name="BoxCapacity" Type="Int32" Nullable="false" />
+          <Property Name="PalletCapacity" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CheckFormatSN_SMT" Type="Boolean" Nullable="false" />
+          <Property Name="CheckFormatSN_FAS" Type="Boolean" Nullable="false" />
+          <Property Name="SMTNumberFormat" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SMTRangeChecked" Type="Boolean" Nullable="false" />
+          <Property Name="SMTStartRange" Type="Int32" />
+          <Property Name="SMTEndRange" Type="Int32" />
+          <Property Name="FASNumberFormat" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FASRangeChecked" Type="Boolean" Nullable="false" />
+          <Property Name="FASStartRange" Type="Int32" />
+          <Property Name="FASEndRange" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="SingleSN" Type="Boolean" />
+          <Property Name="SN_MAC_Param" Type="Byte" />
+          <Property Name="ParseLog" Type="Boolean" />
+          <Property Name="StepSequence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HexFasSN" Type="Boolean" />
+          <Property Name="СustomersID" Type="Int32" />
+          <Property Name="LOTSize" Type="Int32" />
+          <Property Name="LOT_Shipped" Type="Int32" />
+          <Property Name="FASNumberFormat2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FASModelContainer" CdmEntityContainer="FASEntities">
+          <EntitySetMapping Name="FAS_Breaks">
+            <EntityTypeMapping TypeName="FASModel.FAS_Breaks">
+              <MappingFragment StoreEntitySet="FAS_Breaks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="BreakNumber" ColumnName="BreakNumber" />
+                <ScalarProperty Name="StartBreak" ColumnName="StartBreak" />
+                <ScalarProperty Name="EndBreak" ColumnName="EndBreak" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_Lines">
+            <EntityTypeMapping TypeName="FASModel.FAS_Lines">
+              <MappingFragment StoreEntitySet="FAS_Lines">
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="LineName" ColumnName="LineName" />
+                <ScalarProperty Name="TipeID" ColumnName="TipeID" />
+                <ScalarProperty Name="Print_Line" ColumnName="Print_Line" />
+                <ScalarProperty Name="Flat_LineID" ColumnName="Flat_LineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_LineType">
+            <EntityTypeMapping TypeName="FASModel.FAS_LineType">
+              <MappingFragment StoreEntitySet="FAS_LineType">
+                <ScalarProperty Name="TipeID" ColumnName="TipeID" />
+                <ScalarProperty Name="TipeName" ColumnName="TipeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_Liter">
+            <EntityTypeMapping TypeName="FASModel.FAS_Liter">
+              <MappingFragment StoreEntitySet="FAS_Liter">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LiterName" ColumnName="LiterName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_ShiftPlan">
+            <EntityTypeMapping TypeName="FASModel.FAS_ShiftPlan">
+              <MappingFragment StoreEntitySet="FAS_ShiftPlan">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="ShiftPlan" ColumnName="ShiftPlan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_ShiftsCounter">
+            <EntityTypeMapping TypeName="FASModel.FAS_ShiftsCounter">
+              <MappingFragment StoreEntitySet="FAS_ShiftsCounter">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="ID_App" ColumnName="ID_App" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+                <ScalarProperty Name="ShiftCounter" ColumnName="ShiftCounter" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LOTID" ColumnName="LOTID" />
+                <ScalarProperty Name="LOT_Counter" ColumnName="LOT_Counter" />
+                <ScalarProperty Name="PassLOTRes" ColumnName="PassLOTRes" />
+                <ScalarProperty Name="FAilLOTRes" ColumnName="FAilLOTRes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_App_ListForPC">
+            <EntityTypeMapping TypeName="FASModel.FAS_App_ListForPC">
+              <MappingFragment StoreEntitySet="FAS_App_ListForPC">
+                <ScalarProperty Name="CT_ScanStep" ColumnName="CT_ScanStep" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="App_ID" ColumnName="App_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_PackingGS">
+            <EntityTypeMapping TypeName="FASModel.FAS_PackingGS">
+              <MappingFragment StoreEntitySet="FAS_PackingGS">
+                <ScalarProperty Name="RepackingDate" ColumnName="RepackingDate" />
+                <ScalarProperty Name="FullBox" ColumnName="FullBox" />
+                <ScalarProperty Name="LOTID" ColumnName="LOTID" />
+                <ScalarProperty Name="PackingByID" ColumnName="PackingByID" />
+                <ScalarProperty Name="PackingDate" ColumnName="PackingDate" />
+                <ScalarProperty Name="UnitNum" ColumnName="UnitNum" />
+                <ScalarProperty Name="BoxNum" ColumnName="BoxNum" />
+                <ScalarProperty Name="PalletNum" ColumnName="PalletNum" />
+                <ScalarProperty Name="LiterIndex" ColumnName="LiterIndex" />
+                <ScalarProperty Name="LiterID" ColumnName="LiterID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_Disassembly">
+            <EntityTypeMapping TypeName="FASModel.FAS_Disassembly">
+              <MappingFragment StoreEntitySet="FAS_Disassembly">
+                <ScalarProperty Name="DisassemblyByID" ColumnName="DisassemblyByID" />
+                <ScalarProperty Name="DisassemblyDate" ColumnName="DisassemblyDate" />
+                <ScalarProperty Name="DisAssemblyLineID" ColumnName="DisAssemblyLineID" />
+                <ScalarProperty Name="ErrorCodeID" ColumnName="ErrorCodeID" />
+                <ScalarProperty Name="LOTID" ColumnName="LOTID" />
+                <ScalarProperty Name="PCBID" ColumnName="PCBID" />
+                <ScalarProperty Name="FullSTBSN" ColumnName="FullSTBSN" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAS_Users">
+            <EntityTypeMapping TypeName="FASModel.FAS_Users">
+              <MappingFragment StoreEntitySet="FAS_Users">
+                <ScalarProperty Name="UsersGroupID" ColumnName="UsersGroupID" />
+                <ScalarProperty Name="IsActiv" ColumnName="IsActiv" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ct_OperLog">
+            <EntityTypeMapping TypeName="FASModel.Ct_OperLog">
+              <MappingFragment StoreEntitySet="Ct_OperLog">
+                <ScalarProperty Name="SNID" ColumnName="SNID" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="ErrorCodeID" ColumnName="ErrorCodeID" />
+                <ScalarProperty Name="LineID" ColumnName="LineID" />
+                <ScalarProperty Name="StepByID" ColumnName="StepByID" />
+                <ScalarProperty Name="StepDate" ColumnName="StepDate" />
+                <ScalarProperty Name="TestResultID" ColumnName="TestResultID" />
+                <ScalarProperty Name="StepID" ColumnName="StepID" />
+                <ScalarProperty Name="LOTID" ColumnName="LOTID" />
+                <ScalarProperty Name="PCBID" ColumnName="PCBID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contract_LOT">
+            <EntityTypeMapping TypeName="FASModel.Contract_LOT">
+              <MappingFragment StoreEntitySet="Contract_LOT">
+                <ScalarProperty Name="FASNumberFormat2" ColumnName="FASNumberFormat2" />
+                <ScalarProperty Name="LOT_Shipped" ColumnName="LOT_Shipped" />
+                <ScalarProperty Name="LOTSize" ColumnName="LOTSize" />
+                <ScalarProperty Name="СustomersID" ColumnName="СustomersID" />
+                <ScalarProperty Name="HexFasSN" ColumnName="HexFasSN" />
+                <ScalarProperty Name="StepSequence" ColumnName="StepSequence" />
+                <ScalarProperty Name="ParseLog" ColumnName="ParseLog" />
+                <ScalarProperty Name="SN_MAC_Param" ColumnName="SN_MAC_Param" />
+                <ScalarProperty Name="SingleSN" ColumnName="SingleSN" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FASEndRange" ColumnName="FASEndRange" />
+                <ScalarProperty Name="FASStartRange" ColumnName="FASStartRange" />
+                <ScalarProperty Name="FASRangeChecked" ColumnName="FASRangeChecked" />
+                <ScalarProperty Name="FASNumberFormat" ColumnName="FASNumberFormat" />
+                <ScalarProperty Name="SMTEndRange" ColumnName="SMTEndRange" />
+                <ScalarProperty Name="SMTStartRange" ColumnName="SMTStartRange" />
+                <ScalarProperty Name="SMTRangeChecked" ColumnName="SMTRangeChecked" />
+                <ScalarProperty Name="SMTNumberFormat" ColumnName="SMTNumberFormat" />
+                <ScalarProperty Name="CheckFormatSN_FAS" ColumnName="CheckFormatSN_FAS" />
+                <ScalarProperty Name="CheckFormatSN_SMT" ColumnName="CheckFormatSN_SMT" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PalletCapacity" ColumnName="PalletCapacity" />
+                <ScalarProperty Name="BoxCapacity" ColumnName="BoxCapacity" />
+                <ScalarProperty Name="LiterIndex" ColumnName="LiterIndex" />
+                <ScalarProperty Name="FullLOTCode" ColumnName="FullLOTCode" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="LOTCode" ColumnName="LOTCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,128 @@
+﻿@model DashBoard.MyClass.DataPacking
+
+@{
+    ViewBag.Title = "DashBoard";
+
+}
+<meta http-equiv="refresh" content="15">
+<body>
+
+    @if (Model.Count == 0)
+    {
+        <div class="NoReport">
+            @Html.Label(Model.LineName)
+            Отсутствует выпуск
+        </div>
+       
+    }
+    else
+    {
+        <div style=" display: flex; justify-content: center;  flex-direction: row; align-items:center; margin-top: 0%;padding: 0%; ">
+            @Html.Label(@Model.LineName , new  { @style = "font-size: 60px ; text-align:center;" })   
+
+            @if (decimal.Parse(@Model.FPY) <= 98)
+            {                
+               @Html.Label("FPY - " + Model.FPY, new  {@style = "font-size: 65px; background-color:lightsalmon;" })               
+            }
+            else
+            {               
+               @Html.Label("FPY -" + Model.FPY, new  {@style = "font-size: 65px; background-color:greenyellow;margin-left: 5%" })              
+            }
+
+        </div>
+
+        if (Model.Breaks)
+        {
+            <p style="background-color: yellow; font-size: 50px; padding: 5px; text-align: center ; margin: 5px; width:auto">
+                Перерыв!
+                <br />
+                с @Html.Label(Model.StartBreak) до @Html.Label(Model.EndBreak)
+                <br />
+                Осталось до конца перерыва @Html.Label(Model.leftTime, new { @id = "Lb" })
+            </p>
+
+        }
+        else
+        {
+
+            <div class="packcount">  
+                <div>
+                    Упаковано @Html.Label(Model.Count.ToString())
+                </div>
+                <div>
+                    План @Html.Label(Model.ShiftPlan.ToString())
+                </div>
+            </div>
+
+            @*<p class="packcount">Упакован @Html.Label(Model.Count.ToString())</p>
+            <p class="packcount">План @Html.Label(Model.ShiftPlan.ToString())</p>*@
+            if (@Model.Plancount > 0)
+            {
+                <p style="background-color: greenyellow ; text-align: center; font-size: 60px;margin: 1%;padding:1%;">Опережение  @Model.Plancount </p>
+            }
+            else
+            {
+                <p style="background-color: lightsalmon; text-align: center; font-size: 60px;margin: 1%;padding:1%;"> Отставание @Model.Plancount </p>
+            }
+        }
+
+    }
+  
+        <div class="back" > 
+            @Html.ActionLink("Назад", "Index", "", new { @style ="Color: white;" })        
+        </div>
+   
+       
+   
+</body>
+
+<style>
+
+    .back {
+        font-size: 50px;
+        background-color:cornflowerblue;        
+        margin-top: 60px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .NoReport {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 100px;
+        padding: 2px;
+        line-height: 0.7em;
+    }
+
+    .packcount {
+        color: black;
+        margin: 0%;
+        padding: 0%;
+        font-size: 90px;
+        text-align: center;
+        display:block;
+    }
+
+    body {
+        margin: 0%;
+        padding: 0%;
+    }
+</style>
+
+
+@*<script>
+    function myfunction() {
+        var tt = document.getElementById('Lb').textContent;           
+        tt -= 1;
+        console.log(tt);
+        //tt -= 1;    
+        //alert(tt);
+        document.getElementById('Lb').innerHTML = tt;
+    }
+
+
+    setInterval(myfunction, 1000);
+
+</script>*@
