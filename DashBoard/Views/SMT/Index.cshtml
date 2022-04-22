@@ -1,0 +1,30 @@
+﻿@model DashBoard.MyClass.SMT.Models.Pages
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="Block">
+
+    <h2>Выберите линию SMT</h2>
+
+    
+        @foreach (var item in Model.NameLines) { 
+            <div>
+                @Html.ActionLink(item, "GetDashBoard", new { NameLine = item }, new { @class = "btn btn-success", @style = "font-size:24px;" })
+            </div>
+        }
+    
+
+</div>
+
+
+<style>
+    #Block {
+        margin: 0.9em;        
+    }        
+        #Block div {
+            margin-top: 0.5em;
+            align-items:center;
+                
+        }
+</style>

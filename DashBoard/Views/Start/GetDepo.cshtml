@@ -1,0 +1,221 @@
+﻿@model DashBoard.MyClass.Depo
+
+@{
+    ViewBag.Title = "GetDepo";
+}
+
+<head>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.slim.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.slim.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.intellisense.js"></script>
+</head>
+
+@if (ViewData["Type"] == null)
+{
+    <meta id="refresh" http-equiv="refresh" content="10">
+}
+
+<p id="n">@Model.name</p>
+
+
+<style>
+    table {
+        background-color: white;
+        border: 1px groove black;
+        width: auto;
+        font-size: 33px;
+        margin: 1px;
+    }
+
+    .Rows {
+        display: flex;
+        align-items: center;
+        padding: 1%;
+        margin: 1%;
+    }
+
+    .b {
+        width: 35%;
+        border: 1px dashed black;
+        padding: 1%;
+        margin: 4%;
+    }
+
+    td {
+        border: 1px solid black;
+        margin: 100px;
+        /*padding: 2%;*/
+        text-align: center;
+    }
+
+    th {
+        background-color: gold;
+        text-align: center;
+        border: 1px groove black;
+        margin: 1%;
+    }
+
+    div {
+        margin: 2%;
+        align-content: center;
+    }
+
+    body {
+        /*margin: 0%;
+        padding: 0%;*/
+    }
+</style>
+
+
+
+<div style="display:flex; align-items:flex-start;">
+    <div>
+        <table>
+            <tr>
+                <th colspan="2"> Статистика по смене </th>
+            </tr>
+            <tr>
+                <th>Упаковано за смену </th>
+                <th>Протестировано за смену </th>
+            </tr>
+
+            <tr>
+                <td style="font-size:150px; ">
+                    @Html.DisplayFor(c => Model.CountPacking ) 
+                </td>
+                <td style="font-size:150px; text-align: center">
+                    <div>
+                        <table style="margin: auto; font-size:85px;">
+                            <tr>
+                                <th colspan="2"> @Html.DisplayFor(c => Model.CountTest)  </th>
+                            </tr>
+                            <tr>
+                                <th style="background-color: lightgreen">PASS</th>
+                                <th style="background-color: lightcoral">FAIL</th>
+                               
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(c => Model.Pass)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(c => Model.Fail)
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                   
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="b">
+
+            <div class="Rows">
+                <div>
+                    <p>Укажите дату</p>
+                    ОТ
+                    <input type="date" id="date_st">
+                    <span></span>
+                    <input type="time" id="time_st">
+                </div>
+            </div>
+
+
+            <div class="Rows">
+                <div>
+                    ДО
+                    <input type="date" id="date_end">
+                    <span></span>
+                    <input type="time" id="time_end">
+                    <p class="btn btn-dark" id="OK"> Сформировать Отчёт </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table>
+
+        <tr>
+            <th colspan="4"> ТОП по тестированию </th>
+
+        </tr>
+
+        <tr>
+            <th> № </th>
+            <th> Работник </th>
+            <th style="background-color: lightgreen"> Тест пройден  </th>
+            <th style="background-color: lightcoral"> Тест не пройден </th>
+            <th>   Цикл   </th>     
+        </tr>
+
+        @foreach (var item in Model.userTops)
+        {
+            <tr>
+                <td> @Html.DisplayFor(c=> item.NUM) </td>
+                <td style="font-size:22px; word-wrap:break-word;">
+                    @Html.DisplayFor(c => item.UserName)
+                </td>
+                <td style="font-size:35px;">
+                    @Html.DisplayFor(c => item.Count)
+                </td>
+                    <td style="font-size:35px;">
+                    @Html.DisplayFor(c => item.DisCount)
+                </td>
+                <td>
+                    <label> @Html.DisplayFor( c=> item.Cycle ) </label> 
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td>Общий цикл @Model.Cycle </td>
+        </tr>
+
+    </table>
+
+
+
+</div>
+<script>
+    $(document).ready(function () {
+        var d = new Date();
+        $("#date_st").val(d.toISOString().substring(0, 10));
+        $("#time_st").val('08:00')
+
+        //d.setDate(d.getDate() + 1);
+
+        $("#date_end").val(d.toISOString().substring(0, 10));
+        $("#time_end").val('20:00');
+
+    });
+
+
+    $("#OK").click(function () {
+        window.stop();
+         var name = $("#n").text();
+         $.ajax({
+
+             url: '@Url.Action("GetDepo", "Start")',
+             type: "GET",
+             context: document.body,
+                             data: {
+                                 name: name,
+                                 datest: $("#date_st").val() + " " + $("#time_st").val(),
+                                 dateend: $("#date_end").val() + " " + $("#time_end").val(),
+                             },
+                             success: function (data) {
+                                 $(this).html(data);
+                         },
+                         error: function (xhr, status, error) {
+                             alert(xhr);
+                             alert(status);
+                             alert(error);
+                         }
+                      })
+    });
+</script>

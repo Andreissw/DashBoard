@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c8b2e0bc0a764f5da009fe8f0f8a461b" Name="Diagram1">
+        <EntityTypeShape EntityType="PSIGMA.FLATModel.DTR_Downtime" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PSIGMA.FLATModel.TRC_dtProductionArea" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="PSIGMA.FLATModel.FK_DTR_Downtime_TRC_dtProductionArea" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PSIGMA.FLATModel.DTR_DowntimeCode" Width="1.5" PointX="0.75" PointY="5.625" />
+        <AssociationConnector Association="PSIGMA.FLATModel.FK_DTR_Downtime_DTR_DowntimeCode" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

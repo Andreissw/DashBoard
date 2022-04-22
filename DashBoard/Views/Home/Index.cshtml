@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Выберите Цех</h2>
+
+<div>
+    <div>
+        @Html.ActionLink("Цех поверхностного монтажа","Index","SMT", "",new { @class = "btn btn-success", @style = "font-size:48px;" })
+    </div>
+    <div>
+        @Html.ActionLink("Цех сборки", "FAS","Start","",new { @class = "btn btn-success", @style = "font-size:48px;" })
+    </div>
+</div>
+
+<style>
+    div div {
+        margin:0.3%;        
+        
+    }
+
+    h2 {
+        margin-left:0.3%;
+    }
+</style>

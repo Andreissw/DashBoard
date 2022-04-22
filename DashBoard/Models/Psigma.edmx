@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище PSIGMA.FLATModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DTR_Downtime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="StopDate" Type="datetime" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="CodeID" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="ProductionAreaID" Type="int" />
+          <Property Name="AssetID" Type="int" />
+          <Property Name="StationID" Type="int" />
+          <Property Name="ApplicationID" Type="int" />
+          <Property Name="CloseBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CloseDate" Type="datetime" />
+          <Property Name="RegBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="CommingBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommingDate" Type="datetime" />
+          <Property Name="HardwareID" Type="int" />
+          <Property Name="DescriptionID" Type="int" />
+        </EntityType>
+        <EntityType Name="DTR_DowntimeCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ClassID" Type="int" />
+        </EntityType>
+        <EntityType Name="TRC_dtProductionArea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="TypeID" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Desc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_DTR_Downtime_DTR_DowntimeCode">
+          <End Role="DTR_DowntimeCode" Type="Self.DTR_DowntimeCode" Multiplicity="0..1" />
+          <End Role="DTR_Downtime" Type="Self.DTR_Downtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTR_DowntimeCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DTR_Downtime">
+              <PropertyRef Name="CodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DTR_Downtime_TRC_dtProductionArea">
+          <End Role="TRC_dtProductionArea" Type="Self.TRC_dtProductionArea" Multiplicity="0..1" />
+          <End Role="DTR_Downtime" Type="Self.DTR_Downtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRC_dtProductionArea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DTR_Downtime">
+              <PropertyRef Name="ProductionAreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PSIGMAFLATModelContainer">
+          <EntitySet Name="DTR_Downtime" EntityType="Self.DTR_Downtime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DTR_DowntimeCode" EntityType="Self.DTR_DowntimeCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRC_dtProductionArea" EntityType="Self.TRC_dtProductionArea" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DTR_Downtime_DTR_DowntimeCode" Association="Self.FK_DTR_Downtime_DTR_DowntimeCode">
+            <End Role="DTR_DowntimeCode" EntitySet="DTR_DowntimeCode" />
+            <End Role="DTR_Downtime" EntitySet="DTR_Downtime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DTR_Downtime_TRC_dtProductionArea" Association="Self.FK_DTR_Downtime_TRC_dtProductionArea">
+            <End Role="TRC_dtProductionArea" EntitySet="TRC_dtProductionArea" />
+            <End Role="DTR_Downtime" EntitySet="DTR_Downtime" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PSIGMA.FLATModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DTR_Downtime">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="StopDate" Type="DateTime" Precision="3" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="CodeID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionAreaID" Type="Int32" />
+          <Property Name="AssetID" Type="Int32" />
+          <Property Name="StationID" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+          <Property Name="CloseBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CloseDate" Type="DateTime" Precision="3" />
+          <Property Name="RegBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="CommingBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CommingDate" Type="DateTime" Precision="3" />
+          <Property Name="HardwareID" Type="Int32" />
+          <Property Name="DescriptionID" Type="Int32" />
+          <NavigationProperty Name="TRC_dtProductionArea" Relationship="Self.FK_DTR_Downtime_TRC_dtProductionArea" FromRole="DTR_Downtime" ToRole="TRC_dtProductionArea" />
+          <NavigationProperty Name="DTR_DowntimeCode" Relationship="PSIGMA.FLATModel.FK_DTR_Downtime_DTR_DowntimeCode" FromRole="DTR_Downtime" ToRole="DTR_DowntimeCode" />
+        </EntityType>
+        <EntityType Name="TRC_dtProductionArea">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DTR_Downtime" Relationship="Self.FK_DTR_Downtime_TRC_dtProductionArea" FromRole="TRC_dtProductionArea" ToRole="DTR_Downtime" />
+        </EntityType>
+        <Association Name="FK_DTR_Downtime_TRC_dtProductionArea">
+          <End Role="TRC_dtProductionArea" Type="Self.TRC_dtProductionArea" Multiplicity="0..1" />
+          <End Role="DTR_Downtime" Type="Self.DTR_Downtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRC_dtProductionArea">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DTR_Downtime">
+              <PropertyRef Name="ProductionAreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DTR_Downtime" EntityType="Self.DTR_Downtime" />
+          <EntitySet Name="TRC_dtProductionArea" EntityType="Self.TRC_dtProductionArea" />
+          <AssociationSet Name="FK_DTR_Downtime_TRC_dtProductionArea" Association="Self.FK_DTR_Downtime_TRC_dtProductionArea">
+            <End Role="TRC_dtProductionArea" EntitySet="TRC_dtProductionArea" />
+            <End Role="DTR_Downtime" EntitySet="DTR_Downtime" />
+          </AssociationSet>
+          <EntitySet Name="DTR_DowntimeCode" EntityType="PSIGMA.FLATModel.DTR_DowntimeCode" />
+          <AssociationSet Name="FK_DTR_Downtime_DTR_DowntimeCode" Association="PSIGMA.FLATModel.FK_DTR_Downtime_DTR_DowntimeCode">
+            <End Role="DTR_DowntimeCode" EntitySet="DTR_DowntimeCode" />
+            <End Role="DTR_Downtime" EntitySet="DTR_Downtime" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DTR_DowntimeCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ClassID" Type="Int32" />
+          <NavigationProperty Name="DTR_Downtime" Relationship="PSIGMA.FLATModel.FK_DTR_Downtime_DTR_DowntimeCode" FromRole="DTR_DowntimeCode" ToRole="DTR_Downtime" />
+        </EntityType>
+        <Association Name="FK_DTR_Downtime_DTR_DowntimeCode">
+          <End Type="PSIGMA.FLATModel.DTR_DowntimeCode" Role="DTR_DowntimeCode" Multiplicity="0..1" />
+          <End Type="PSIGMA.FLATModel.DTR_Downtime" Role="DTR_Downtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DTR_DowntimeCode">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DTR_Downtime">
+              <PropertyRef Name="CodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PSIGMAFLATModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="DTR_Downtime">
+            <EntityTypeMapping TypeName="PSIGMA.FLATModel.DTR_Downtime">
+              <MappingFragment StoreEntitySet="DTR_Downtime">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StopDate" ColumnName="StopDate" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="CodeID" ColumnName="CodeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ProductionAreaID" ColumnName="ProductionAreaID" />
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="CloseBy" ColumnName="CloseBy" />
+                <ScalarProperty Name="CloseDate" ColumnName="CloseDate" />
+                <ScalarProperty Name="RegBy" ColumnName="RegBy" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="CommingBy" ColumnName="CommingBy" />
+                <ScalarProperty Name="CommingDate" ColumnName="CommingDate" />
+                <ScalarProperty Name="HardwareID" ColumnName="HardwareID" />
+                <ScalarProperty Name="DescriptionID" ColumnName="DescriptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRC_dtProductionArea">
+            <EntityTypeMapping TypeName="PSIGMA.FLATModel.TRC_dtProductionArea">
+              <MappingFragment StoreEntitySet="TRC_dtProductionArea">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Desc" ColumnName="Desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DTR_DowntimeCode">
+            <EntityTypeMapping TypeName="PSIGMA.FLATModel.DTR_DowntimeCode">
+              <MappingFragment StoreEntitySet="DTR_DowntimeCode">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

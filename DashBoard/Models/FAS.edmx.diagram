@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="510c253a41b4452a8d2c0ca185eb2b5d" Name="Diagram1">
+        <EntityTypeShape EntityType="FASModel.FAS_Breaks" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FASModel.FAS_Lines" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FASModel.FAS_LineType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FASModel.FAS_Liter" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FASModel.FAS_ShiftsCounter" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FASModel.FAS_App_ListForPC" Width="1.5" PointX="5" PointY="8" />
+        <AssociationConnector Association="FASModel.FK_FAS_App_ListForPC_FAS_Lines" />
+        <EntityTypeShape EntityType="FASModel.FAS_PackingGS" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="FASModel.FAS_Disassembly" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FASModel.FAS_Users" Width="1.5" PointX="0.75" PointY="11.25" />
+        <AssociationConnector Association="FASModel.FK_FAS_PackingGS_FAS_Users" />
+        <EntityTypeShape EntityType="FASModel.Contract_LOT" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="FASModel.FAS_Models" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FASModel.FAS_GS_LOTs" Width="1.5" PointX="11.625" PointY="3.25" />
+        <AssociationConnector Association="FASModel.FK_FAS_GS_LOTs_FAS_Models" />
+        <AssociationConnector Association="FASModel.FK_FAS_GS_LOTs_FAS_Users" />
+        <AssociationConnector Association="FASModel.FK_FAS_GS_LOTs_FAS_Users1" />
+        <EntityTypeShape EntityType="FASModel.EP_Doc" Width="1.5" PointX="3" PointY="21.5" />
+        <EntityTypeShape EntityType="FASModel.EP_Email" Width="1.5" PointX="9.375" PointY="13.75" />
+        <EntityTypeShape EntityType="FASModel.EP_FileTypeMIME" Width="1.5" PointX="11.375" PointY="13.75" />
+        <EntityTypeShape EntityType="FASModel.EP_Log" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="FASModel.EP_Machine" Width="1.5" PointX="0.75" PointY="32.75" />
+        <EntityTypeShape EntityType="FASModel.EP_Monitoring" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="FASModel.EP_PGName" Width="1.5" PointX="3" PointY="17.125" />
+        <EntityTypeShape EntityType="FASModel.EP_Protocols" Width="1.5" PointX="0.75" PointY="17.625" />
+        <EntityTypeShape EntityType="FASModel.EP_ProtocolsInfo" Width="1.5" PointX="6" PointY="16.75" />
+        <EntityTypeShape EntityType="FASModel.EP_Result" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FASModel.EP_Service" Width="1.5" PointX="0.75" PointY="22.125" />
+        <EntityTypeShape EntityType="FASModel.EP_StepLog" Width="1.5" PointX="0.75" PointY="15.25" />
+        <EntityTypeShape EntityType="FASModel.EP_TypeDocument" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="FASModel.EP_TypeVerification" Width="1.5" PointX="0.75" PointY="24.875" />
+        <AssociationConnector Association="FASModel.EP_protoc_fk" />
+        <AssociationConnector Association="FASModel.EP_LogProtoc_fk" />
+        <AssociationConnector Association="FASModel.EP_LogServ_fk" />
+        <AssociationConnector Association="FASModel.EP_LogUserID_fk" />
+        <AssociationConnector Association="FASModel.EP_LogVer_fk" />
+        <AssociationConnector Association="FASModel.fk_idStep" />
+        <AssociationConnector Association="FASModel.EP_MAch_fk" />
+        <AssociationConnector Association="FASModel.EP_Pg_fk" />
+        <AssociationConnector Association="FASModel.EP_ProtocolInfo_fk" />
+        <AssociationConnector Association="FASModel.EP_TypeVer_fk" />
+        <AssociationConnector Association="FASModel.EP_UserID_fk" />
+        <AssociationConnector Association="FASModel.EP_Serv_fk" />
+        <AssociationConnector Association="FASModel.EP_Doc_fk" />
+        <EntityTypeShape EntityType="FASModel.Ct_OperLog" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="FASModel.FAS_ShiftPlan" Width="1.5" PointX="11.625" PointY="17.375" />
+        <AssociationConnector Association="FASModel.FK__FAS_Shift__Model__3726238F" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

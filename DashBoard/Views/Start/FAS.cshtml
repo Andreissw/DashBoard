@@ -1,0 +1,116 @@
+﻿@model DashBoard.Lots
+
+
+@{ ViewBag.Title = "Index"; }
+
+<style>
+    div {
+        
+        display: flex;
+        align-items:flex-start;
+        margin:10px auto 5px;
+    }
+        div div {
+            text-align: center;
+        }
+
+    .bloks {
+        margin: 0.8%;
+        display: block;
+        font-size: 35px;
+        overflow-y: auto;
+        max-height: 600px;
+        height: auto;
+        border: 0.3px dotted gray;
+        padding: 1.8%;
+
+    }
+
+   
+</style>
+
+<div> 
+    <div>
+        <div class="bloks">
+            <h3>Отчёт по линии</h3>
+            @foreach (var item in Model.LotsLine)
+            {
+                <table >
+                    <tr>
+                        <td> @Html.ActionLink(item.Name, "GetLine", new { LineName = item.Name }, new { @class = "btn btn-success" }) </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+    <div>
+        <div class="bloks">
+            <h3>Отчёт по контрактным заказам</h3>
+            <p>(*Активные заказы, у которых выпуск больше 10шт.)</p>
+            @foreach (var item in Model.ListLots)
+            {
+        <table >
+
+            <tr>
+                <td> @Html.ActionLink(item.Name, "GetDepo", new { name = item.Name }, new { @class = "btn btn-success" })</td>
+            </tr>
+        </table>}
+        </div>
+    </div>
+</div>
+
+@*<table style="margin: 5px auto">
+    @for (int i = 1; i <= 6; i++)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink($"FAS Line {i}", "GetLine", new { LineName = $"FAS Line {i}" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+            </td>
+        </tr>
+}
+
+
+    <tr>
+        <td>
+            @Html.ActionLink($"DPH410S sp33", "GetDepo", new { name = "sp33_Dp_ DPH410S_10000шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"DPA320S sp36", "GetDepo", new { name = "sp36_Dp_Плата системная DPA320S_7000шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"AQB560", "GetDepo", new { name = "№1 AQB560 - 24750 шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"DPH410T 40SP", "GetDepo", new { name = "sp40_Dp_DPH410T_4000шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"sp5_RDW-MB-B450M", "GetDepo", new { name = "sp5,6_Rdv _RDW-MB-B450M_28000шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink($"sp42_DPС156", "GetDepo", new { name = "sp42_Dp_Плата_системная_DPС156" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink($"SP6 AQB560 - 24750 шт", "GetDepo", new { name = "№6 AQB560 - 24750 шт" }, new { @style = "font-size: 50px;", @class = "btn btn-success" })
+        </td>
+    </tr>
+
+</table>*@
+
+

@@ -1,0 +1,400 @@
+﻿@model DashBoard.MyClass.SMT.Models.DashBoardSMT
+
+@{
+    ViewBag.Title = "GetDashBoard";
+    //string color;
+    string Path;
+    string Pathprt;
+    ////string smileAngry = "https://i.pinimg.com/originals/c3/74/93/c37493daeb8418207e59c4d60e77e1c8.jpg";
+    ////string SmileGlad = "https://catherineasquithgallery.com/uploads/posts/2021-02/1612671305_7-p-zelenii-smailik-na-chernom-fone-7.png";
+    string smileAngry = Url.Content("~/Resourse/Angry.jpg");
+    string SmileGlad = Url.Content("~/Resourse/Smile.png");
+
+    var List = Model.ListTime;
+    var Ch = Model.Machine.ListCharts;
+
+    string Status;
+    string StatusPRt;
+    float c = 0;
+    //if (Model.Plans.Status)
+    //{
+    //    color = "lightgreen";
+    //}
+    //else
+    //{
+    //    color = "lightcoral";
+    //}
+
+    if (!Model.IsStatus)
+    {
+        Status = Model.NameProblem;
+        //Path = "https://e7.pngegg.com/pngimages/504/421/png-clipart-traffic-light-computer-icons-red-light-s-sphere-website.png";
+        Path = Url.Content("~/Resourse/Red.png");
+    }
+    else
+    {
+        Status = "Линия работает";
+        //Path = "https://img2.freepng.ru/20180406/ujw/kisspng-traffic-light-green-light-clip-art-green-circle-5ac7fca50a6d69.4621128115230557810427.jpg";
+        Path = Url.Content("~/Resourse/Green.png");
+    }
+
+    if (Model.IsStatusPrt == "true")
+    {
+        StatusPRt = "Протокол активирован!";
+        Pathprt = Url.Content("~/Resourse/Green.png");
+    }
+    else if (Model.IsStatusPrt == "false")
+    {
+        StatusPRt = "Протокол не заполнен!";
+        Pathprt = Url.Content("~/Resourse/Red.png");
+    }
+    else
+    {
+        StatusPRt = "Программа на АОИ не соответствует";
+        Pathprt = Url.Content("~/Resourse/Red.png");
+    }
+
+}
+
+<meta http-equiv="refresh" content="30">
+
+<style>
+
+    td div {
+        font-size: 1.3em;
+    }
+
+    body {
+        width: 1920px;
+        height: 800px;
+        text-align: center;
+        /*background: url(https://pbs.twimg.com/ext_tw_video_thumb/1309613447672365056/pu/img/v3ixGe7YViVsc-2Z.jpg);*/
+    }
+
+    #head {
+        /*padding: 0 0px 0 0;*/
+        border-radius: 1em; /* Радиус скругления */
+        top: 0px;
+    }
+
+        #head h1 {
+            text-align: center;
+            font-size: 3.6em;
+        }
+
+    h3 {
+        font-size: 4.4em;
+    }
+
+    div {
+        /*border: 1px solid gray;*/
+        margin: 0.2%;
+    }
+
+    .box {
+        display: flex;
+        height: 610px;
+    }
+
+    header p {
+        text-align: center;
+    }
+
+    #left {
+        width: 65%;
+        height: 80%;
+    }
+
+        #left img {
+            width: 45px;
+            height: 65px;
+        }
+
+        #left table {
+            width: 100%;
+        }
+
+            #left table td {
+                border-left: 1.5px solid gray;
+                border-bottom: 1px solid gray;
+                margin: 0.2%;
+                padding-left: 1%;
+                font-size: 4.6em;
+            }
+
+            #left table div td {   
+                padding:0;
+                margin:0;
+                font-size: 9em;
+            }
+
+    #right {
+        width: 100%;
+        height: 100%;
+        border-left: 4px solid gray;
+        /*text-align:center;*/
+        /*align-items:center;*/
+    }
+
+        #right div div {
+            height:200px;
+        }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        text-align: center;
+    }
+
+    #Chart {
+        width: 100%;
+        height: 75%;
+        border: 1px solid black;
+    }
+
+    .status {
+        width:50%;
+    }
+</style>
+<body>
+    <header>
+        <div id="head" style="border-bottom: 4px solid gray;">
+            <p style="font-size:5em">@Model.ShLine</p>
+            <div style="display:flex; align-items:center">
+                <div><h2>P&P: @Model.FujiPG</h2> </div>
+                <div style="margin-left:20%;"><h1>@Model.Machine.ShrtPGName</h1></div>
+            </div>
+            
+        </div>
+    </header>
+
+
+    <div class="box">
+        <div id="left">
+            <table>
+                @foreach (var item in Model.Table)
+                {
+                    if (item.Name == "Отст:")
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td style="background-color: lightcoral"> <div> @item.Value <img src="@smileAngry" /> </div> </td>
+                        </tr>
+                    }
+                    else if (item.Name == "Опрж:")
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td style="background-color: lightgreen"> <div>@item.Value <img src="@SmileGlad" /> </div></td>
+                        </tr>
+                    }
+                    else if (item.Name == "FFPY:")
+                    {
+                        if (float.Parse(item.Value) >= 70)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td style="background-color: lightgreen"> <div> @item.Value <img src="@SmileGlad" /> </div> </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td style="background-color: lightcoral"><div>@item.Value <img src="@smileAngry" /></div></td>
+                            </tr>
+                        }
+                    }
+                    else if (item.Name == "FPY:")
+                    {
+                        if (float.Parse(item.Value) >= 90)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td style="background-color: lightgreen"><div>@item.Value <img src="@SmileGlad" /> </div> </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td style="background-color: lightcoral"><div>@item.Value <img src="@smileAngry" /></div></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td><div>@item.Value</div></td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </div>
+
+        <div id="right" style="display:block">
+
+            <div style="display: flex; align-items:center; width:100%;">
+                <div class="status" >
+                    <h2 style="text-align:center;">@Status</h2>
+                    <img style="text-align:center" src="@Path" />
+                </div>
+                <div class="status">
+                        <h2 style="text-align: center">@StatusPRt</h2>
+                        <img style="text-align:center" src="@Pathprt" />
+                 </div>
+            </div>
+
+            <div style="width: 100%; height:90%; margin-top:10%;">
+                <canvas style="height:100%;  background-color: aliceblue" id="Chart"></canvas>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+@*<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>*@
+@*<script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js'></script>*@
+@*<script src="https://cdn.jsdelivr.net/npm/patternomaly@1.3.2/dist/patternomaly.min.js"></script>*@
+<script src="~/Scripts/canvasjs.min.js"></script>
+<script src="~/Scripts/yerygerherh.js"></script>
+<script src="~/Scripts/patternomaly.js"></script>
+
+
+<script>
+
+    var ctx = document.getElementById('Chart').getContext("2d");
+
+    var MyData = {
+
+    };
+
+   var myOptions = {
+
+        hover: {
+            animationDuration: 1
+        },
+        animation: {
+
+            onComplete: function () {
+                var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                ctx.textAlign = 'center';
+                ctx.fillStyle = "rgba(0, 0, 0, 1)";
+                ctx.textBaseline = 'bottom';
+                ctx.font = "bold 24px 'Helvetica Neue', Helvetica, Arial, sans-serif";
+                // Loop through each data in the datasets
+                var d = this.data.datasets[3];
+                var rel = this.data.datasets[1];
+                var def = this.data.datasets[2];
+
+                var meta = chartInstance.controller.getDatasetMeta(3);
+                meta.data.forEach(function (bar, index) {
+
+
+                    var data = d.data[index] + '%';
+                    var reld =  rel.data[index];
+                    var defd = def.data[index] + ' /';
+
+                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                    ctx.fillText(reld, bar._model.x, bar._model.y + 185);
+                    ctx.fillText(defd, bar._model.x, bar._model.y + 150);
+
+
+                });
+            }
+       },
+       legend: {
+           position: 'right',
+       },
+       scales: {
+           yAxes: [{
+               display: true,
+               ticks: {
+                   beginAtZero: true,
+                   steps: 10,
+                   stepValue: 10,
+                   max: 110,
+                   min: 60
+               }
+           }]
+       }
+
+    };
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [
+                {
+                    label: 'Цель',
+                    type: 'line',
+                    data: [90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90],
+                    fill: false,
+                    backgroundColor: "#000000",
+                    borderColor: "#000000",
+
+                },
+
+                {
+                    label: 'Выпуск',
+                    type: 'line',
+                    data: [@Ch[0].CountRel, @Ch[1].CountRel, @Ch[2].CountRel
+                        , @Ch[3].CountRel, @Ch[4].CountRel, @Ch[5].CountRel
+                        , @Ch[6].CountRel, @Ch[7].CountRel, @Ch[8].CountRel
+                    , @Ch[9].CountRel, @Ch[10].CountRel, @Ch[11].CountRel],
+                    hidden: true,
+
+                },
+
+                   {
+                    label: 'Отказ',
+                    type: 'line',
+                    data: [@Ch[0].Countdef, @Ch[1].Countdef, @Ch[2].Countdef
+                        , @Ch[3].Countdef, @Ch[4].Countdef, @Ch[5].Countdef
+                        , @Ch[6].Countdef, @Ch[7].Countdef, @Ch[8].Countdef
+                    , @Ch[9].Countdef, @Ch[10].Countdef, @Ch[11].Countdef],
+                    hidden: true,
+
+                },
+
+                {
+                label: 'FPY за смену',
+                    data: [@Ch[0].FPYChart.Replace(',','.'), @Ch[1].FPYChart.Replace(',','.'), @Ch[2].FPYChart.Replace(',','.')
+                        , @Ch[3].FPYChart.Replace(',','.'), @Ch[4].FPYChart.Replace(',','.'), @Ch[5].FPYChart.Replace(',','.')
+                        , @Ch[6].FPYChart.Replace(',','.'), @Ch[7].FPYChart.Replace(',','.'), @Ch[8].FPYChart.Replace(',','.')
+                    , @Ch[9].FPYChart.Replace(',','.'), @Ch[10].FPYChart.Replace(',','.'), @Ch[11].FPYChart.Replace(',','.')],
+
+
+                 backgroundColor: [
+                    '@Ch[0].Color',
+                    '@Ch[1].Color',
+                    '@Ch[2].Color',
+                    '@Ch[3].Color',
+                    '@Ch[4].Color',
+                     '@Ch[5].Color',
+                     '@Ch[6].Color',
+                     '@Ch[7].Color',
+                     '@Ch[8].Color',
+                     '@Ch[9].Color',
+                     '@Ch[10].Color',
+                    '@Ch[11].Color',
+                    ],
+
+            }],
+            labels: ['@List[0]', '@List[1]', '@List[2]', '@List[3]', '@List[4]', '@List[5]'
+                , '@List[6]', '@List[7]', '@List[8]', '@List[9]', '@List[10]', '@List[11]'],
+
+
+        },
+        options: myOptions
+
+    });
+
+
+</script>
